@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "608959246901",
+    "firebase_url": "https://partum-7afe9.firebaseio.com",
+    "project_id": "partum-7afe9",
+    "storage_bucket": "partum-7afe9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608959246901:android:8acc88f85fe388b9",
+        "android_client_info": {
+          "package_name": "io.potter.partum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608959246901-hgljpb19qvtlne1bhe75qd1uqtrcob7o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.potter.partum",
+            "certificate_hash": "6967a2b9499c5da37cb71059bc535f59eb6b95e5"
+          }
+        },
+        {
+          "client_id": "608959246901-bi0peto8dkho4ot7ngovv4usp8bge68p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq0GmY8hYVJ9BQc5dnyfFTp2uNL7DwwJ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608959246901-bi0peto8dkho4ot7ngovv4usp8bge68p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
