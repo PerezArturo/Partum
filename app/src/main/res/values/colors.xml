@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3FC1C9</color>
-    <color name="colorPrimaryDark">#2B8489</color>
-    <color name="colorAccent">#ffa900</color>
-    <color name="colorEdt">#666</color>
-    <color name="overlayBg">#7f333639</color>
-    <color name="overlayActionBar">#0e0d0e</color>
-
+  <color name="colorPrimary">#fe1344</color>
+  <color name="colorPrimaryDark">#BE0E33</color>
+  <color name="colorAccent">#008489</color>
+  <color name="colorEdt">#666</color>
+  <color name="overlayBg">#7f333639</color>
+  <color name="overlayActionBar">#0e0d0e</color>
+  <color name="secondColor">#e5e5e5</color>
 </resources>
+ 

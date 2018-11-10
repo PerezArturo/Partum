@@ -34,21 +34,23 @@ import io.potter.partum.Common.Common;
 import io.potter.partum.Interface.ItemClickListener;
 import io.potter.partum.Model.Category;
 import io.potter.partum.Model.Food;
+import io.potter.partum.Model.Restaurant;
 import io.potter.partum.ViewHolder.MenuViewHolder;
+import io.potter.partum.ViewHolder.RestaurantViewHolder;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseDatabase database;
-    DatabaseReference category;
+    DatabaseReference rest;
 
     TextView txtFullName;
     TextView txtEmail;
 
-    RecyclerView recycler_menu;
+    RecyclerView recycler_rest;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
+    FirebaseRecyclerAdapter<Restaurant,RestaurantViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class Home extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         database=FirebaseDatabase.getInstance();
-        category=database.getReference("Category");
+        rest=database.getReference("Restaurant");
 
         Paper.init(this);
 
@@ -67,8 +69,8 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent cartIntent = new Intent(Home.this,Cart.class);
+                startActivity(cartIntent);
             }
         });
 
@@ -86,10 +88,10 @@ public class Home extends AppCompatActivity
 
 
 
-        recycler_menu = findViewById(R.id.recycler_menu);
-        recycler_menu.setHasFixedSize(true);
+        recycler_rest = findViewById(R.id.recycler_restaurant);
+        recycler_rest.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        recycler_menu.setLayoutManager(layoutManager);
+        recycler_rest.setLayoutManager(layoutManager);
         if (Common.isConnectedToInternet(this)) {
             loadMenu();
         }
@@ -101,24 +103,24 @@ public class Home extends AppCompatActivity
         }
 
     private void loadMenu() {
-         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category) {
-            @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
-                viewHolder.txtMenuName.setText(model.getName());
-                Picasso.get().load(model.getImage())
-                        .into(viewHolder.imageView);
-                final Category clickItem = model;
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodlist = new Intent(Home.this,FoodList.class);
-                        foodlist.putExtra("CategoryId",adapter.getRef(position).getKey());
-                        startActivity(foodlist);
-                    }
-                });
-            }
+         adapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(Restaurant.class,R.layout.restaurant_item,RestaurantViewHolder.class,rest) {
+             @Override
+             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant model, int position) {
+                 viewHolder.txtRestaurantName.setText(model.getName());
+                 Picasso.get().load(model.getImage())
+                         .into(viewHolder.imageRestaurant);
+                 final Restaurant clickItem = model;
+                 viewHolder.setItemClickListener(new ItemClickListener() {
+                     @Override
+                     public void onClick(View view, int position, boolean isLongClick) {
+                         Intent restlist = new Intent(Home.this,RestaurantDetail.class);
+                         restlist.putExtra("RestaurantId",adapter.getRef(position).getKey());
+                         startActivity(restlist);
+                     }
+                 });
+             }
         };
-        recycler_menu.setAdapter(adapter);
+        recycler_rest.setAdapter(adapter);
     }
 
     @Override
@@ -158,8 +160,12 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_menu) {
             // Handle the camera action
         } else if (id == R.id.nav_cart) {
+            Intent cart = new Intent(Home.this,Cart.class);
+            startActivity(cart);
 
         } else if (id == R.id.nav_order) {
+            Intent order = new Intent(Home.this,OrderStatus.class);
+            startActivity(order);
 
         } else if (id == R.id.nav_log_out) {
             Paper.book().destroy();

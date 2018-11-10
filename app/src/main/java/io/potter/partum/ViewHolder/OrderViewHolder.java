@@ -2,25 +2,24 @@ package io.potter.partum.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.potter.partum.Interface.ItemClickListener;
 import io.potter.partum.R;
 
-public class RestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView txtRestaurantName;
-    public ImageView imageRestaurant;
+    public TextView txtOrderID,txtOrderStatus,txtOrderPhone,txtOrderAddress;
 
-    private ItemClickListener itemClickListener;
+    public ItemClickListener itemClickListener;
 
-
-    public RestaurantViewHolder(View itemView) {
+    public OrderViewHolder(View itemView) {
         super(itemView);
 
-        txtRestaurantName = itemView.findViewById(R.id.restaurant_name);
-        imageRestaurant = itemView.findViewById(R.id.restaurant_image);
+        txtOrderID = itemView.findViewById(R.id.order_id);
+        txtOrderStatus = itemView.findViewById(R.id.order_status);
+        txtOrderPhone = itemView.findViewById(R.id.order_phone);
+        txtOrderAddress = itemView.findViewById(R.id.order_address);
 
         itemView.setOnClickListener(this);
     }
