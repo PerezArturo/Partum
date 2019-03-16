@@ -5,6 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class FoodDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.white));*/
 
         database = FirebaseDatabase.getInstance();
         food = database.getReference("Foods");
@@ -58,6 +61,7 @@ public class FoodDetail extends AppCompatActivity {
         collapsingToolbarLayout = findViewById(R.id.collapsing);
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +94,8 @@ public class FoodDetail extends AppCompatActivity {
                 Picasso.get().load(currentFood.getImage())
                         .into(food_image);
 
-                collapsingToolbarLayout.setTitle(currentFood.getName());
+//                collapsingToolbarLayout.setTitle(currentFood.getName());
+                collapsingToolbarLayout.setBackgroundColor(getResources().getColor(R.color.white));
                 food_price.setText(currentFood.getPrice());
                 food_name.setText(currentFood.getName());
                 food_description.setText(currentFood.getDescription());

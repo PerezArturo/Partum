@@ -4,31 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".Cart">
 
     <LinearLayout
+        android:padding="16dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Carrito"
-            android:textSize="24sp"
-            android:textColor="@color/colorPrimary"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listCart"
-            android:background="@color/secondColor"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingTop="?attr/actionBarSize" />
     </LinearLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Toolbar Title"
+                android:layout_gravity="center"
+                android:id="@+id/toolbar_title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.CardView
         android:layout_alignParentBottom="true"
-        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardBackgroundColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="100dp">
         <RelativeLayout
@@ -43,14 +61,16 @@
                 <TextView
                     android:text="Total: "
                     android:textSize="20sp"
-                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/total"
                     android:text=" "
+                    android:textStyle="bold"
                     android:textSize="24sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -58,9 +78,13 @@
             <Button
                 android:id="@+id/placeOrder"
                 android:text="Ordenar"
-                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:background="@color/colorPrimary"
+
+                android:textColor="@color/white"
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

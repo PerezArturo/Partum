@@ -20,7 +20,7 @@
             android:layout_height="350dp"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="@color/white"
             app:expandedTitleTextAppearance="@android:color/transparent"
             >
             <ImageView
@@ -33,7 +33,6 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:title="Food Name"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
@@ -43,6 +42,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnCart"
+        android:tint="@color/white"
         android:src="@drawable/ic_shopping_cart_black"
         android:backgroundTint="@color/colorAccent"
         android:layout_width="wrap_content"

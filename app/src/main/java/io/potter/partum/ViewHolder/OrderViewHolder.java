@@ -2,6 +2,7 @@ package io.potter.partum.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.potter.partum.Interface.ItemClickListener;
@@ -10,6 +11,7 @@ import io.potter.partum.R;
 public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public TextView txtOrderID,txtOrderStatus,txtOrderPhone,txtOrderAddress;
+    public ImageView imgStatus;
 
     public ItemClickListener itemClickListener;
 

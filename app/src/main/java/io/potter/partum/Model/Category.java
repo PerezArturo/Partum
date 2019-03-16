@@ -3,24 +3,14 @@ package io.potter.partum.Model;
 public class Category {
 
     private String Name;
-    private  String Image;
-    private  String RestId;
+    private   String Image;
 
     public Category() {
     }
 
-    public Category(String name, String image, String restid) {
+    public Category(String name, String image) {
         Name = name;
         Image = image;
-        RestId = restid;
-    }
-
-    public String getRestId() {
-        return RestId;
-    }
-
-    public void setRestId(String restId) {
-        RestId = restId;
     }
 
     public String getName() {

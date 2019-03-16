@@ -53,7 +53,7 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this, "Ya existe el numero", Toast.LENGTH_SHORT).show();
                             } else {
                                 mDialog.dismiss();
-                                User user = new User(edtName.getText().toString(), edtPassword.getText().toString(),null);
+                                User user = new User(edtPhone.getText().toString(),edtName.getText().toString(), edtPassword.getText().toString());
                                 table_user.child(edtPhone.getText().toString()).setValue(user);
                                 Toast.makeText(SignUp.this, "Exito", Toast.LENGTH_SHORT).show();
                                 finish();

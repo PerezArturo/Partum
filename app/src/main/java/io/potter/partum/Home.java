@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -35,33 +36,38 @@ import io.potter.partum.Interface.ItemClickListener;
 import io.potter.partum.Model.Category;
 import io.potter.partum.Model.Food;
 import io.potter.partum.Model.Restaurant;
+import io.potter.partum.Service.ListenOrder;
 import io.potter.partum.ViewHolder.MenuViewHolder;
 import io.potter.partum.ViewHolder.RestaurantViewHolder;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     FirebaseDatabase database;
     DatabaseReference rest;
 
     TextView txtFullName;
-    TextView txtEmail;
+    TextView toolBar_Title;
 
     RecyclerView recycler_rest;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Restaurant,RestaurantViewHolder> adapter;
+    FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        toolBar_Title = findViewById(R.id.toolbar_title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu");
+        toolBar_Title.setText(getResources().getString(R.string.app_name));
+        toolBar_Title.setTextColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         database=FirebaseDatabase.getInstance();
-        rest=database.getReference("Restaurant");
+        rest=database.getReference("Category");
 
         Paper.init(this);
 
@@ -78,6 +84,9 @@ public class Home extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        toggle.setDrawerArrowDrawable(new BadgedDrawerArrowDrawable(getApplicationContext()));
+       /* toggle.setDrawerIndicatorEnabled(false);
+        toggle.setHomeAsUpIndicator(R.drawable.ic_menu);*/
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -90,8 +99,10 @@ public class Home extends AppCompatActivity
 
         recycler_rest = findViewById(R.id.recycler_restaurant);
         recycler_rest.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new GridLayoutManager(this, 2);
         recycler_rest.setLayoutManager(layoutManager);
+        recycler_rest.addItemDecoration(new SpacingItemDecoration(2, Tools.dpToPx(this, 8), true));
+        recycler_rest.setNestedScrollingEnabled(false);
         if (Common.isConnectedToInternet(this)) {
             loadMenu();
         }
@@ -100,21 +111,24 @@ public class Home extends AppCompatActivity
             return;
         }
 
+        Intent service = new Intent(Home.this,ListenOrder.class);
+        startService(service);
+
         }
 
     private void loadMenu() {
-         adapter = new FirebaseRecyclerAdapter<Restaurant, RestaurantViewHolder>(Restaurant.class,R.layout.restaurant_item,RestaurantViewHolder.class,rest) {
+         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,rest) {
              @Override
-             protected void populateViewHolder(RestaurantViewHolder viewHolder, Restaurant model, int position) {
-                 viewHolder.txtRestaurantName.setText(model.getName());
+             protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+                 viewHolder.txtMenuName.setText(model.getName());
                  Picasso.get().load(model.getImage())
-                         .into(viewHolder.imageRestaurant);
-                 final Restaurant clickItem = model;
+                         .into(viewHolder.imageView);
+                 final Category clickItem = model;
                  viewHolder.setItemClickListener(new ItemClickListener() {
                      @Override
                      public void onClick(View view, int position, boolean isLongClick) {
-                         Intent restlist = new Intent(Home.this,RestaurantDetail.class);
-                         restlist.putExtra("RestaurantId",adapter.getRef(position).getKey());
+                         Intent restlist = new Intent(Home.this,FoodList.class);
+                         restlist.putExtra("CategoryId",adapter.getRef(position).getKey());
                          startActivity(restlist);
                      }
                  });

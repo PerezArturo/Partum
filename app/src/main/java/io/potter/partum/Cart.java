@@ -2,10 +2,13 @@ package io.potter.partum;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,15 +39,30 @@ public class Cart extends AppCompatActivity {
     DatabaseReference requests;
 
     TextView totalPrice;
+    TextView toolBar_Title;
     Button btnPlace;
 
     List<Order> cart = new ArrayList<>();
     CartAdapter adapter;
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        toolBar_Title = findViewById(R.id.toolbar_title);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolBar_Title.setText("Carrito");
+        toolBar_Title.setTextColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp);
 
         database = FirebaseDatabase.getInstance();
         requests = database.getReference("Requests");
@@ -56,6 +74,8 @@ public class Cart extends AppCompatActivity {
 
         totalPrice = findViewById(R.id.total);
         btnPlace = findViewById(R.id.placeOrder);
+
+
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override

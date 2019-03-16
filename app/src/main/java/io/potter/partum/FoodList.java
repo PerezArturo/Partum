@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -16,12 +19,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import io.potter.partum.Common.Common;
 import io.potter.partum.Interface.ItemClickListener;
@@ -38,6 +43,8 @@ public class FoodList extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference foodlist;
 
+
+
     String categoryId = "";
 
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
@@ -50,6 +57,8 @@ public class FoodList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         database = FirebaseDatabase.getInstance();
         foodlist = database.getReference("Foods");
@@ -122,7 +131,13 @@ public class FoodList extends AppCompatActivity {
         ) {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
+                int[] androidColors = getResources().getIntArray(R.array.androidcolors);
+                int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+
+                viewHolder.foodLayout.setBackgroundColor(randomAndroidColor);
                 viewHolder.txtFoodName.setText(model.getName());
+                viewHolder.txtFoodDescription.setText(model.getDescription());
+                viewHolder.txtFoodPrice.setText("$ "+ model.getPrice());
                 Picasso.get().load(model.getImage())
                         .into(viewHolder.imageFoodView);
                 final Food local = model;
@@ -162,10 +177,12 @@ public class FoodList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,
                 R.layout.food_item,
                 FoodViewHolder.class,
-                foodlist.orderByChild("MenuId").equalTo(categoryId)) {
+                foodlist.orderByChild("menuId").equalTo(categoryId)) {
             @Override
             protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
                 viewHolder.txtFoodName.setText(model.getName());
+                viewHolder.txtFoodDescription.setText(model.getDescription());
+                viewHolder.txtFoodPrice.setText("$ "+ model.getPrice());
                 Picasso.get().load(model.getImage())
                         .into(viewHolder.imageFoodView);
                 final Food local = model;

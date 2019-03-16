@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import io.potter.partum.R;
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView txt_cart_name,txt_cart_price;
-    public ImageView img_cart_count;
+    public ImageView img_cart_img,img_cart_count;
 
     private ItemClickListener itemClickListener;
 
@@ -37,6 +38,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         txt_cart_name= itemView.findViewById(R.id.cart_item_name);
         txt_cart_price = itemView.findViewById(R.id.cart_item_price);
         img_cart_count = itemView.findViewById(R.id.cart_item_count);
+        img_cart_img = itemView.findViewById(R.id.cart_item_image);
     }
 
     @Override
